@@ -41,10 +41,15 @@ describe('Dynamic Routing', function () {
             return originalSettingsCacheGetFn(key, options);
         });
 
-        return testUtils.startGhost()
-            .then(function () {
-                request = supertest.agent(config.get('url'));
-            });
+        return testUtils.startGhost({
+            frontend: true,
+            copyThemes: true,
+            copySettings: true,
+            redirectsFile: true,
+            server: true
+        }).then(function () {
+            request = supertest.agent(config.get('url'));
+        });
     });
 
     after(function () {
